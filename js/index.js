@@ -69,6 +69,33 @@ function AddAnimal(){
     });
 }
 
+
+function renderTable(){
+    var text = "";
+    for(var animal of species){
+        text += "<tr>";
+        text += "<td><div class=\"ui input\"><input value=" + animal.name + "></div></td>";
+        text += "<td><div class=\"ui input\"><input value=" + animal.population + "></div></td>";
+        text += "<td><div class=\"ui input\"><input value=" + animal.food_needed + "></div></td>";
+        text += "<td><div class=\"ui input\"><input value=" + animal.food_value + "></div></td>";
+        text += "<td><div class=\"ui input\"><input value=" + animal.max_predation_count + "></div></td>";
+        text += "<td><div class=\"ui input\"><input value=" + animal.reproduction_rate + "></div></td>";
+        text += "<td>"
+        for(var diet of animal.diet){
+            text += "<div class=\"ui selection dropdown\"><input type=\"hidden\" name=\"Prey\"><i class=\"dropdown icon\"></i><div class=\"default text\">Prey</div><div class=\"ui menu\">";
+            text += "<div class=\"item\" data-value=\"1\">" + "hello" + "</div>";
+            text += "<div class=\"item\" data-value=\"2\">" + "goodybe" + "</div>";
+            text += "<div class=\"item\" data-value=\"3\">" + "have a gud day" + "</div>";
+            text += "</div></div>";
+        }
+        text += "</td>";
+        
+        text += "</tr>";
+    }
+    $("#animaldisp").html(text);
+}
+
+
 function Cycle(){
     console.log("Starting food cycle!");
 
