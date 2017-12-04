@@ -82,13 +82,14 @@ function renderTable(){
         text += "<td><div class=\"ui input\"><input value=" + animal.reproduction_rate + "></div></td>";
         text += "<td>"
         for(var diet of animal.diet){
-            text += "<div class=\"ui selection dropdown\"><input type=\"hidden\" name=\"Prey\"><i class=\"dropdown icon\"></i><div class=\"default text\">Prey</div><div class=\"ui menu\">";
-            text += "<div class=\"item\" data-value=\"1\">" + "hello" + "</div>";
-            text += "<div class=\"item\" data-value=\"2\">" + "goodybe" + "</div>";
-            text += "<div class=\"item\" data-value=\"3\">" + "have a gud day" + "</div>";
-            text += "</div></div>";
+            text += "<select class=\"ui dropdown\">"
+            for(var a in species){
+                var ani = species[a];
+                text += "<option value=\"" + a + "\">" + ani.name + "</option>"
+            }
+            text += "</select>"
         }
-        text += "</td>";
+        text += "<button style=\"float: right;\" class=\"ui icon button\"><i class=\"plus icon\"></i></button></td>";
         
         text += "</tr>";
     }
