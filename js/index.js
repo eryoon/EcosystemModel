@@ -75,7 +75,19 @@ function Cycle(){
     for(var i in species){
         var animal = species[i];
         console.log(animal.name + " is now hunting.");
+
+
+        if(animal.food_needed <= 0){
+            console.log(animal.name + " has a food_needed value of 0; Skipping the hunt and simply multiplying for the sake of efficiency.");
+            animal.population *= animal.reproduction_rate;
+            for(var tempanimal of species){
+                console.log("There are now " + tempanimal.population + " " + tempanimal.name + "s.");
+            }
+            continue;
+        }
+
         var newPop = animal.population;
+
         for(j = 0; j < animal.population; j++){
             var collected = 0;
             for(var cycleNum = 0; cycleNum < animal.max_predation_count; cycleNum++){
