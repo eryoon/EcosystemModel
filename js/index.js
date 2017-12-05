@@ -70,17 +70,43 @@ function AddAnimal(){
     console.log("Added animal!");
 }
 
+function changeData(idx){
+    console.log("changing data of species[" + idx + "]");
+    var newname = document.getElementById("name-" + idx).value;
+    if(species[idx].name != newname){
+        console.debug("Name has changed. Updating name.");
+        for(var anidx in species){
+            var ani = species[anidx];
+            for(var preyidx in ani.diet){
+                var prey = ani.diet[preyidx];
+                if(prey == species[idx].name){
+                    console.debug("Found name " + prey + " in " + ani.name + ". Changing.");
+                    species[anidx].diet[preyidx] = newname;
+                }
+            }
+        }
+        species[idx].name = newname;
+    }
+    species[idx].population = document.getElementById("population-" + idx).value;
+    species[idx].food_needed = document.getElementById("food_needed-" + idx).value;
+    species[idx].food_value = document.getElementById("food_value-" + idx).value;
+    species[idx].max_predation_count = document.getElementById("max_predation_count-" + idx).value;
+    species[idx].reproduction_rate = document.getElementById("reproduction_rate-" + idx).value;
+    renderTable();
+}
+
 
 function renderTable(){
     var text = "";
-    for(var animal of species){
+    for(var aniidx in species){
+        var animal = species[aniidx];
         text += "<tr>";
-        text += "<td><div class=\"ui input\"><input value=\"" + animal.name + "\"></div></td>";
-        text += "<td><div class=\"ui input\"><input value=\"" + animal.population + "\"></div></td>";
-        text += "<td><div class=\"ui input\"><input value=\"" + animal.food_needed + "\"></div></td>";
-        text += "<td><div class=\"ui input\"><input value=\"" + animal.food_value + "\"></div></td>";
-        text += "<td><div class=\"ui input\"><input value=\"" + animal.max_predation_count + "\"></div></td>";
-        text += "<td><div class=\"ui input\"><input value=\"" + animal.reproduction_rate + "\"></div></td>";
+        text += "<td><div class=\"ui input\"><input onchange=\"changeData(" + aniidx + ")\" value=\"" + animal.name + "\" id=\"name-" + aniidx + "\"></div></td>";
+        text += "<td><div class=\"ui input\"><input onchange=\"changeData(" + aniidx + ")\" value=\"" + animal.population + "\" id=\"population-" + aniidx + "\"></div></td>";
+        text += "<td><div class=\"ui input\"><input onchange=\"changeData(" + aniidx + ")\" value=\"" + animal.food_needed + "\" id=\"food_needed-" + aniidx + "\"></div></td>";
+        text += "<td><div class=\"ui input\"><input onchange=\"changeData(" + aniidx + ")\" value=\"" + animal.food_value + "\" id=\"food_value-" + aniidx + "\"></div></td>";
+        text += "<td><div class=\"ui input\"><input onchange=\"changeData(" + aniidx + ")\" value=\"" + animal.max_predation_count + "\" id=\"max_predation_count-" + aniidx + "\"></div></td>";
+        text += "<td><div class=\"ui input\"><input onchange=\"changeData(" + aniidx + ")\" value=\"" + animal.reproduction_rate + "\" id=\"reproduction_rate-" + aniidx + "\"></div></td>";
         text += "<td>"
         for(var diet of animal.diet){
             text += "<select class=\"ui dropdown\">"
@@ -122,7 +148,7 @@ function Cycle(){
                 if(animal.diet.length === 0) break;
                 var preyOfTheDay = species.filter(function(obj) {return obj.name == animal.diet[Math.floor(Math.random() * animal.diet.length)];})[0];
                 
-                
+                console.log("looking for " + animal.diet[Math.floor(Math.random() * animal.diet.length)]);
                 if(preyOfTheDay.population === 0) continue;
 
                 var catchNum = Math.round(preyOfTheDay.population / 10);
@@ -147,7 +173,7 @@ function Cycle(){
             console.log("There are now " + tempanimal.population + " " + tempanimal.name + "s.");
         }
     }
-
+    renderTable();
 }
 
 
