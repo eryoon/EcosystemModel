@@ -17,7 +17,8 @@ var species = [
         "reproduction_rate": 20,
         "diet": [
 
-        ]
+        ],
+        "pop_hist": []
     },
     {
         "name": "Rabbit",
@@ -28,7 +29,8 @@ var species = [
         "reproduction_rate": 2,
         "diet": [
             "Grass"
-        ]
+        ],
+        "pop_hist": []
     },
     {
         "name": "Wolf",
@@ -39,7 +41,8 @@ var species = [
         "reproduction_rate": 3,
         "diet": [
             "Rabbit"
-        ]
+        ],
+        "pop_hist": []
     },
     {
         "name": "The Grim Reaper of Death",
@@ -50,7 +53,8 @@ var species = [
         "reproduction_rate": 2,
         "diet": [
             "Wolf"
-        ]
+        ],
+        "pop_hist": []
     }
 ];
 var resetMode = false;
@@ -64,7 +68,8 @@ function AddAnimal(){
         "food_value": 2,
         "max_predation_count": 5,
         "reproduction_rate": 3,
-        "diet": []
+        "diet": [],
+        "pop_hist": []
     });
     renderTable();
     console.log("Added animal!");
@@ -129,6 +134,31 @@ function renderTable(){
     $("#animaldisp").html(text);
 }
 
+var colors = [
+    "red",
+    "orange",
+    "green",
+    "blue",
+    "purple",
+    "black",
+    "yellow",
+    "grey",
+    "lightblue",
+    "darkgoldenrod",
+    "cornflowerblue",
+    "crimson"
+];
+
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+var cycles = 0;
 
 function renderChart(){
     var ctx = document.getElementById("chart").getContext('2d');
@@ -139,29 +169,49 @@ function renderChart(){
         x: 15,
         y: 10
     }];
+
+
+
+    var datasets = [];
+
+    var dataLabels = [];
+
+    for(var i = 1; i <= cycles; i++){
+        dataLabels.push(i);
+    }
+
+    for(var anidx in species){
+        var animal = species[anidx];
+        var color = "black";
+        if(anidx >= colors.length){
+            color = getRandomColor();
+        }else{
+            color = colors[anidx];
+        }
+
+        datasets.push(
+            {
+                label: animal.name,
+                backgroundColor: color,
+                borderColor: color,
+                data: animal.pop_hist,
+                fill: false
+            }
+        );
+
+    }
+
     var chart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
-            datasets: [{
-                label: "My First dataset",
-                backgroundColor: "red",
-                borderColor: "red",
-                data: [1, 2, 3, 6, 4, 5, 9],
-                fill: false,
-            }, {
-                label: "My Second dataset",
-                fill: false,
-                backgroundColor: "blue",
-                borderColor: "blue",
-                data: [1, 7, 3, 8]
-            }]
+            labels: dataLabels,
+            datasets: datasets
         },
         options: {
             responsive: true,
             title:{
                 display:true,
-                text:'Chart.js Line Chart'
+                text:'Population Chart'
             },
             tooltips: {
                 mode: 'index',
@@ -176,14 +226,14 @@ function renderChart(){
                     display: true,
                     scaleLabel: {
                         display: true,
-                        labelString: 'Month'
+                        labelString: 'Cycle'
                     }
                 }],
                 yAxes: [{
                     display: true,
                     scaleLabel: {
                         display: true,
-                        labelString: 'Value'
+                        labelString: 'Population'
                     }
                 }]
             }
@@ -198,9 +248,14 @@ function Reset(){
     if(resetMode == false) return;
     resetMode = false;
     species = oldSpecies;
-    
+    cycles = 0;
     $("#resetbtn").hide();
     $("#body").css("background-color", "#FFFFFF");
+
+    for(var animal of species){
+        animal.pop_hist = [];
+    }
+
     renderTable();
 }
 function AddPrey(idx){
@@ -212,7 +267,7 @@ function Cycle(){
     if(resetMode == false){
         //oldSpecies = species;
         oldSpecies = JSON.parse(JSON.stringify(species));
-        $("#body").css("background-color", "#FFAAAA");
+        //$("#body").css("background-color", "#FFAAAA");
         //ARARAGHGHGHAHRHARHAHRHGHG DEREFERENCING. THIS IS ABSOLUTELY GROSE AND INEFFICIENT but you gotta do what you gotta do
         
         $("#resetbtn").show();
@@ -269,7 +324,14 @@ function Cycle(){
             console.log("There are now " + tempanimal.population + " " + tempanimal.name + "s.");
         }
     }
+    cycles++;
+
+    for(var animal of species){
+        animal.pop_hist.push(animal.population);
+    }
+
     renderTable();
+    renderChart();
 }
 
 
