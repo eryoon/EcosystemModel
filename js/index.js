@@ -53,7 +53,6 @@ var species = [
         ]
     }
 ];
-console.log("Systems ready.");
 
 
 
@@ -67,6 +66,8 @@ function AddAnimal(){
         "reproduction_rate": 3,
         "diet": []
     });
+    renderTable();
+    console.log("Added animal!");
 }
 
 
@@ -85,7 +86,7 @@ function renderTable(){
             text += "<select class=\"ui dropdown\">"
             for(var a in species){
                 var ani = species[a];
-                text += "<option value=\"" + a + "\">" + ani.name + "</option>"
+                text += "<option " + ((ani.name == diet) ? "selected " : "") + "value=\"" + a + "\">" + ani.name + "</option>"
             }
             text += "</select>"
         }
@@ -95,7 +96,6 @@ function renderTable(){
     }
     $("#animaldisp").html(text);
 }
-
 
 function Cycle(){
     console.log("Starting food cycle!");
@@ -149,3 +149,10 @@ function Cycle(){
     }
 
 }
+
+
+window.onload = function(){
+    console.log("Systems ready.");
+    renderTable();
+}
+
