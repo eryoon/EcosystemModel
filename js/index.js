@@ -129,6 +129,7 @@ function Reset(){
     species = oldSpecies;
     
     $("#resetbtn").hide();
+    $("#body").css("background-color", "#FFFFFF");
     renderTable();
 }
 
@@ -137,6 +138,7 @@ function Cycle(){
     if(resetMode == false){
         //oldSpecies = species;
         oldSpecies = JSON.parse(JSON.stringify(species));
+        $("#body").css("background-color", "#FFAAAA");
         //ARARAGHGHGHAHRHARHAHRHGHG DEREFERENCING. THIS IS ABSOLUTELY GROSE AND INEFFICIENT but you gotta do what you gotta do
         
         $("#resetbtn").show();

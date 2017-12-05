@@ -22,7 +22,7 @@
     <script src="../js/animalNames.js"></script>
     <script src="../js/index.js"></script>
 </head>
-<body>
+<body id="body">
     <h1 id="title">Ecosystem Model</h1>
     <table class="ui celled table">
         <thead>
@@ -50,10 +50,13 @@
                     <i class="repeat icon"></i>
                     Run one Predation Cycle
                 </button>
-                <button class="ui button negative labeled icon left floated" onclick="Reset()" id="resetbtn">
+                <div id="resetbtn">
+                <button class="ui button negative labeled icon left floated" onclick="Reset()">
                     <i class="stop icon"></i>
                     Stop and Reset Simulation
                 </button>
+                <p>Any changes you make during Simulation Time will be discarded when you reset.</p>
+                </div>
             </th>
             </tr>
         </tfoot>
