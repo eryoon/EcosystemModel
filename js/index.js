@@ -127,6 +127,7 @@ function Reset(){
     if(resetMode == false) return;
     resetMode = false;
     species = oldSpecies;
+    
     $("#resetbtn").hide();
     renderTable();
 }
@@ -134,8 +135,12 @@ function Reset(){
 
 function Cycle(){
     if(resetMode == false){
-        oldSpecies = species;
+        //oldSpecies = species;
+        oldSpecies = JSON.parse(JSON.stringify(species));
+        //ARARAGHGHGHAHRHARHAHRHGHG DEREFERENCING. THIS IS ABSOLUTELY GROSE AND INEFFICIENT but you gotta do what you gotta do
+        
         $("#resetbtn").show();
+        console.log("setting oldSpecies");
     }
     resetMode = true;
     console.log("Starting food cycle!");
