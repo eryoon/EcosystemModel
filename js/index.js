@@ -74,12 +74,12 @@ function renderTable(){
     var text = "";
     for(var animal of species){
         text += "<tr>";
-        text += "<td><div class=\"ui input\"><input value=" + animal.name + "></div></td>";
-        text += "<td><div class=\"ui input\"><input value=" + animal.population + "></div></td>";
-        text += "<td><div class=\"ui input\"><input value=" + animal.food_needed + "></div></td>";
-        text += "<td><div class=\"ui input\"><input value=" + animal.food_value + "></div></td>";
-        text += "<td><div class=\"ui input\"><input value=" + animal.max_predation_count + "></div></td>";
-        text += "<td><div class=\"ui input\"><input value=" + animal.reproduction_rate + "></div></td>";
+        text += "<td><div class=\"ui input\"><input value=\"" + animal.name + "\"></div></td>";
+        text += "<td><div class=\"ui input\"><input value=\"" + animal.population + "\"></div></td>";
+        text += "<td><div class=\"ui input\"><input value=\"" + animal.food_needed + "\"></div></td>";
+        text += "<td><div class=\"ui input\"><input value=\"" + animal.food_value + "\"></div></td>";
+        text += "<td><div class=\"ui input\"><input value=\"" + animal.max_predation_count + "\"></div></td>";
+        text += "<td><div class=\"ui input\"><input value=\"" + animal.reproduction_rate + "\"></div></td>";
         text += "<td>"
         for(var diet of animal.diet){
             text += "<select class=\"ui dropdown\">"
@@ -89,7 +89,7 @@ function renderTable(){
             }
             text += "</select>"
         }
-        text += "<button style=\"float: right;\" class=\"ui icon button\"><i class=\"plus icon\"></i></button></td>";
+        text += "<button style=\"float: right;\" class=\"ui icon button\" data-tooltip=\"Add prey\" data-position=\"top right\" data-inverted=\"\"><i class=\"plus icon\"></i></button></td>";
         
         text += "</tr>";
     }
