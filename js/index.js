@@ -105,13 +105,18 @@ function changeData(idx){
     renderTable();
 }
 
+function Delete(idx){
+    species.splice(idx, 1);
+    console.log("Deleted " + idx);
+    renderTable();
+}
 
 function renderTable(){
     var text = "";
     for(var aniidx in species){
         var animal = species[aniidx];
         text += "<tr>";
-        text += "<td><div class=\"ui input\"><input onchange=\"changeData(" + aniidx + ")\" value=\"" + animal.name + "\" id=\"name-" + aniidx + "\"></div></td>";
+        text += "<td><div class=\"ui input\"><input onchange=\"changeData(" + aniidx + ")\" value=\"" + animal.name + "\" id=\"name-" + aniidx + "\"></div><button class=\"ui button negative icon\" style=\"float: right;\" onclick=\"Delete(" + aniidx + ")\"><i class=\"trash icon\"></i></button></td>";
         text += "<td class=\"" + (animal.population === 0 ? "warning" : "") + "\"><div class=\"ui input\"><input onchange=\"changeData(" + aniidx + ")\" value=\"" + animal.population + "\" id=\"population-" + aniidx + "\"></div></td>";
         text += "<td><div class=\"ui input\"><input onchange=\"changeData(" + aniidx + ")\" value=\"" + animal.food_needed + "\" id=\"food_needed-" + aniidx + "\"></div></td>";
         text += "<td><div class=\"ui input\"><input onchange=\"changeData(" + aniidx + ")\" value=\"" + animal.food_value + "\" id=\"food_value-" + aniidx + "\"></div></td>";

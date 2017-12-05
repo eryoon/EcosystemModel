@@ -445,7 +445,7 @@ var animalNames = [
 "Vampire bat",
 "Vampire squid",
 "Vaquita",
-"Vicuña",
+"Vicuna",
 "Viper",
 "Voalavoanala",
 "Vole",
