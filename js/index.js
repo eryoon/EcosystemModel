@@ -53,8 +53,8 @@ var species = [
         ]
     }
 ];
-
-
+var resetMode = false;
+var oldSpecies = species;
 
 function AddAnimal(){
     species.push({
@@ -123,7 +123,21 @@ function renderTable(){
     $("#animaldisp").html(text);
 }
 
+function Reset(){
+    if(resetMode == false) return;
+    resetMode = false;
+    species = oldSpecies;
+    $("#resetbtn").hide();
+    renderTable();
+}
+
+
 function Cycle(){
+    if(resetMode == false){
+        oldSpecies = species;
+        $("#resetbtn").show();
+    }
+    resetMode = true;
     console.log("Starting food cycle!");
 
     for(var i in species){
