@@ -130,6 +130,70 @@ function renderTable(){
 }
 
 
+function renderChart(){
+    var ctx = document.getElementById("chart").getContext('2d');
+    var data = [{
+        x: 10,
+        y: 20
+    }, {
+        x: 15,
+        y: 10
+    }];
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            datasets: [{
+                label: "My First dataset",
+                backgroundColor: "red",
+                borderColor: "red",
+                data: [1, 2, 3, 6, 4, 5, 9],
+                fill: false,
+            }, {
+                label: "My Second dataset",
+                fill: false,
+                backgroundColor: "blue",
+                borderColor: "blue",
+                data: [1, 7, 3, 8]
+            }]
+        },
+        options: {
+            responsive: true,
+            title:{
+                display:true,
+                text:'Chart.js Line Chart'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Month'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Value'
+                    }
+                }]
+            }
+        }
+    });
+
+
+
+}
+
 function Reset(){
     if(resetMode == false) return;
     resetMode = false;
