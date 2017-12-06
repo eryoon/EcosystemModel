@@ -133,7 +133,7 @@ function renderTable(){
             text += "</select>"
         }
         text += "<button style=\"float: right;\" onclick=\"AddPrey(" + aniidx + ")\" class=\"ui icon button\" data-tooltip=\"Add prey\" data-position=\"top right\" data-inverted=\"\"><i class=\"plus icon\"></i></button></td>";
-        
+
         text += "</tr>";
     }
     $("#animaldisp").html(text);
@@ -274,7 +274,7 @@ function Cycle(){
         oldSpecies = JSON.parse(JSON.stringify(species));
         //$("#body").css("background-color", "#FFAAAA");
         //ARARAGHGHGHAHRHARHAHRHGHG DEREFERENCING. THIS IS ABSOLUTELY GROSE AND INEFFICIENT but you gotta do what you gotta do
-        
+
         $("#resetbtn").show();
         console.log("setting oldSpecies");
     }
@@ -302,7 +302,7 @@ function Cycle(){
             for(var cycleNum = 0; cycleNum < animal.max_predation_count; cycleNum++){
                 if(animal.diet.length === 0) break;
                 var preyOfTheDay = species.filter(function(obj) {return obj.name == animal.diet[Math.floor(Math.random() * animal.diet.length)];})[0];
-                
+
                 console.log("looking for " + animal.diet[Math.floor(Math.random() * animal.diet.length)]);
                 if(preyOfTheDay.population === 0) continue;
 
@@ -315,7 +315,7 @@ function Cycle(){
                 if(collected >= animal.food_needed) break;
             }
             if(collected >= animal.food_needed){
-                newPop += animal.reproduction_rate;
+                newPop = parseFloat(newPop) + parseFloat(animal.reproduction_rate);
                 console.debug(animal.name + j + " collected enough food!");
             }else{
                 console.debug(animal.name + j + " did not collect enough food.");
@@ -344,4 +344,3 @@ window.onload = function(){
     console.log("Systems ready.");
     renderTable();
 }
-
