@@ -26,7 +26,7 @@ var species = [
         "food_needed": 3,
         "food_value": 3,
         "max_predation_count": 3,
-        "reproduction_rate": 2,
+        "reproduction_rate": 3,
         "diet": [
             "Grass"
         ],
@@ -38,7 +38,7 @@ var species = [
         "food_needed": 8,
         "food_value": 20,
         "max_predation_count": 8,
-        "reproduction_rate": 3,
+        "reproduction_rate": 4,
         "diet": [
             "Rabbit"
         ],
@@ -46,7 +46,7 @@ var species = [
     },
     {
         "name": "The Grim Reaper of Death",
-        "population": 1,
+        "population": 3,
         "food_needed": 20,
         "food_value": 0,
         "max_predation_count": 5,
@@ -101,6 +101,13 @@ function changeData(idx){
     for(var i in species[idx].diet){
         species[idx].diet[i] = document.getElementById("diet-" + idx + "-" + i).value;
     }
+    var newDiet = species[idx].diet
+    for(var i in species[idx].diet){
+      if(species[idx].diet[i] == "_DELETE"){
+        newDiet.splice(i, 1);
+      }
+    }
+    species[idx].diet = newDiet;
 
     renderTable();
 }
@@ -126,6 +133,7 @@ function renderTable(){
         for(var d in animal.diet){
             var diet = animal.diet[d];
             text += "<select class=\"ui dropdown\" onchange=\"changeData(" + aniidx + ")\" id=\"diet-" + aniidx + "-" + d + "\">";
+            text += "<option value=\"_DELETE\">DELETE PREY</option>";
             for(var a in species){
                 var ani = species[a];
                 text += "<option " + ((ani.name == diet) ? "selected " : "") + "value=\"" + ani.name + "\">" + ani.name + "</option>";
