@@ -309,9 +309,9 @@ function Cycle(){
             var collected = 0;
             for(var cycleNum = 0; cycleNum < animal.max_predation_count; cycleNum++){
                 if(animal.diet.length === 0) break;
-                var preyOfTheDay = species.filter(function(obj) {return obj.name == animal.diet[Math.floor(Math.random() * animal.diet.length)];})[0];
+                var selection = Math.floor(Math.random() * animal.diet.length);
+                var preyOfTheDay = species.filter(function(obj) {return obj.name == animal.diet[selection];})[0];
 
-                console.log("looking for " + animal.diet[Math.floor(Math.random() * animal.diet.length)]);
                 if(preyOfTheDay.population === 0) continue;
 
                 var catchNum = Math.round(preyOfTheDay.population / 10);
